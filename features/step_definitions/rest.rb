@@ -41,7 +41,7 @@ end
 
 Dado('que o ususario altere uma informacao de funcionario') do
     @get_employee = HTTParty.get('https://dummy.restapiexample.com/api/v1/employees', :headers => {'Content-Type': 'application/json'})
-  @put_url = 'https://dummy.restapiexample.com/api/v1/update/' + @get_employee['data'][0]['id'].to_s 
+    @put_url = 'https://dummy.restapiexample.com/api/v1/update/' + @get_employee['data'][0]['id'].to_s 
 end
 
 Quando('ele enviar as novas informacoes') do
@@ -57,8 +57,25 @@ Então('as informacoe serao alteradas') do
     expect(@update_employee.code).to eql 200
     expect(@update_employee.message).to eql 'OK'
     expect(@update_employee["status"]).to  eql 'success'
-    expect(@update_employee['message']). to eql 'Successfully! Record has been added.'
+    expect(@update_employee['message']). to eql 'Successfully! Record has been updated.'
     expect(@update_employee['data']['employee_name']).to eql 'tutututt'
     expect(@update_employee['data']['employee_salary']).to eql (433060)
     expect(@update_employee['data']['employee_age']).to eql (22)
+end
+
+Dado('que o usuario queira deletar') do
+    get_employee = HTTParty.get('https://dummy.restapiexample.com/api/v1/employees', :headers => {'Content-Type': 'application/json'})
+    @delete_url = 'https://dummy.restapiexample.com/api/v1/update/' + @get_employee['data'][0]['id'].to_s 
+
+Quando('ele enviar a identidade') do
+    @delete_employee = HTTParty.delete(@delete_url, :headers => {'Content-Type': 'applicantion/json'})
+    puts @delete_employee
+end
+
+Entao('esse funcionario vai se apagado do sistema') do
+  expect(@delete_employee.code).to eql 200
+    expect(@delete_employee.message).to eql 'OK'
+    expect(@delete_employee["status"]).to  eql 'success'
+    expect(@delete_employee['message']). to eql 'Successfully! Record has been deleted.'
+    expect(@delete_employee['data']).to eql '27'
 end

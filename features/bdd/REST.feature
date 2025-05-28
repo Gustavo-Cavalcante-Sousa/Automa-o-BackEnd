@@ -21,3 +21,9 @@ Funcionalidade: Pesuquisar Funcionarios
         Dado que o ususario altere uma informacao de funcionario
         Quando ele enviar as novas informacoes
         Então as informacoe serao alteradas
+
+    @cenario_quatro
+    Cenario: Apagar um cadastro de funcionario
+        Dado que o usuario queira deletar
+        Quando ele enviar a identidade 
+        Entao esse funcionario vai se apagado do sistema 
