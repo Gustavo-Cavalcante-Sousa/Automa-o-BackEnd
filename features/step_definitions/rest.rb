@@ -38,3 +38,27 @@ Entao('esse funcionario sera casdastrado') do
     expect(@create_employee['data']['employee_salary']).to eql (433060)
     expect(@create_employee['data']['employee_age']).to eql (22)
 end
+
+Dado('que o ususario altere uma informacao de funcionario') do
+    @get_employee = HTTParty.get('https://dummy.restapiexample.com/api/v1/employees', :headers => {'Content-Type': 'application/json'})
+  @put_url = 'https://dummy.restapiexample.com/api/v1/update/' + @get_employee['data'][0]['id'].to_s 
+end
+
+Quando('ele enviar as novas informacoes') do
+  @update_employee = HTTParty.put(@put_url, :headers => {'Content-Type': 'applicantioin/json'}, body: {
+    "employee_name": 'naoquerosaberdenada',
+    'employee_salary': 333,
+    'employee_age': 88,
+    'profile_image': '' 
+    }.to_json)
+end
+
+Então('as informacoe serao alteradas') do
+    expect(@update_employee.code).to eql 200
+    expect(@update_employee.message).to eql 'OK'
+    expect(@update_employee["status"]).to  eql 'success'
+    expect(@update_employee['message']). to eql 'Successfully! Record has been added.'
+    expect(@update_employee['data']['employee_name']).to eql 'tutututt'
+    expect(@update_employee['data']['employee_salary']).to eql (433060)
+    expect(@update_employee['data']['employee_age']).to eql (22)
+end

@@ -15,3 +15,9 @@ Funcionalidade: Pesuquisar Funcionarios
         Dado que o usuario casdastre um novo usuario
         Quando ele enviar as informacoes do funcionario
         Entao esse funcionario sera casdastrado
+
+    @cenario_tres
+    Cenario: Alterar informacoes cadastrais
+        Dado que o ususario altere uma informacao de funcionario
+        Quando ele enviar as novas informacoes
+        Então as informacoe serao alteradas
